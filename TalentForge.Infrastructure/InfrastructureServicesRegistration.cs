@@ -1,0 +1,24 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using SendGrid.Helpers.Mail;
+using TalentForge.Application.Contracts.Infrastructure;
+using TalentForge.Application.Models;
+using TalentForge.Infrastructure.Mail;
+
+namespace TalentForge.Infrastructure
+{
+    public static class InfrastructureServicesRegistration
+    {
+        public static IServiceCollection ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+            //    services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<SmtpSettings>>().Value);
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailRequest, EmailRequest>();
+
+            return services;
+        }
+    }
+}
