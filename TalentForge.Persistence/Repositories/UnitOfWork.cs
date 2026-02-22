@@ -11,6 +11,7 @@ namespace TalentForge.Persistence.Repositories
     {
         private readonly TalentForgeDbContext _context;
         private ITaskRepository _taskRepository;
+        private IJobRepository _jobRepository;
 
         public UnitOfWork(TalentForgeDbContext context)
         {
@@ -19,6 +20,9 @@ namespace TalentForge.Persistence.Repositories
 
         public ITaskRepository TaskRepository => 
          _taskRepository ??= new TaskRepository(_context);
+
+        public IJobRepository JobRepository => 
+         _jobRepository ??= new JobRepository(_context);
 
         public void Dispose()
         {

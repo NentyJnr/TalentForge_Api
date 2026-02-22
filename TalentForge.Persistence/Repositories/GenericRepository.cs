@@ -32,7 +32,7 @@ namespace TalentForge.Persistence.Repositories
             _dbContext.Set<T>().Remove(entity);
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<bool> Exists(Guid id)
         {
             T entity = await GetAsync(id);
             return entity != null;
@@ -56,7 +56,7 @@ namespace TalentForge.Persistence.Repositories
         }
 
 
-        public async Task<T> GetAsync(long id)
+        public async Task<T> GetAsync(Guid id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }

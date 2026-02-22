@@ -15,7 +15,8 @@ namespace TalentForge.Persistence
                     configuration.GetConnectionString("TalentForgeConnectionString")));
 
 
-            services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<IJobRepository, JobRepository>();
+            services.AddTransient<IApplicationRepository, ApplicationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

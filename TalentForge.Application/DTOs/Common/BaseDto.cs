@@ -8,12 +8,12 @@ namespace TalentForge.Application.DTOs.Common
 {
     public class BaseDto
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
     }
 
     public class BaseModel
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

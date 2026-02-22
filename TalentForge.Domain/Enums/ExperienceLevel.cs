@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace TalentForge.Domain.Enums
 {
-    public enum JobStatus
+    public enum ExperienceLevel
     {
-        Draft,
-        Active,
-        Closed
+        Inter,
+        JuniorLevel,
+        MidLevel,
+        SeniorLevel,
     }
 }

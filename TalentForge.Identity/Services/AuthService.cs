@@ -5,22 +5,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using TalentForge.Application.Contracts.Identity;
 using TalentForge.Application.Contracts.Infrastructure;
-using TalentForge.Application.Contracts.Persistence;
-using TalentForge.Application.DTOs;
 using TalentForge.Application.DTOs.Identity;
 using TalentForge.Application.Models.Identity;
-using TalentForge.Application.Responses;
 using TalentForge.Identity.Models;
+using TalentForge.Misc;
 
 namespace TalentForge.Identity.Services
 {
@@ -28,16 +22,18 @@ namespace TalentForge.Identity.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly PasswordGenerator _passwordGenerator;
         private readonly JwtSettings _jwtSettings;
         private readonly IEmailRequest _emailRequest;
         private readonly IUserService _userService;
 
         public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IOptions<JwtSettings> jwtSettings, IEmailRequest emailRequest, IUserService userService)
+            IOptions<JwtSettings> jwtSettings, PasswordGenerator passwordGenerator, IEmailRequest emailRequest, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtSettings = jwtSettings.Value;
+            _passwordGenerator = passwordGenerator;
             _emailRequest = emailRequest;
             _userService = userService;
         }
@@ -123,6 +119,40 @@ namespace TalentForge.Identity.Services
             }
         }
 
+        public async Task<RegistrationResponse> RegisterAdmin(AdminRegistrationRequest registrationRequest)
+        {
+            var existingEmail = await _userManager.FindByEmailAsync(registrationRequest.Email);
+            if (existingEmail == null)
+            {
+                ApplicationUser user = registrationRequest.Adapt<ApplicationUser>();
+                user.UserName = registrationRequest.Email;
+                user.DateCreated = DateTime.Now;
+                string generatedPassword = _passwordGenerator.GenerateRandomPassword();
+                var result = await _userManager.CreateAsync(user, generatedPassword);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, registrationRequest.RoleName);
+
+                    var userDto = user.Adapt<UserDto>();
+
+                    var emailResult = await _emailRequest.SendPasswordEmail(userDto);
+                    if (!emailResult)
+                    {
+                        throw new Exception($"Failed to send credentials email to {registrationRequest.Email}.");
+                    }
+                    return new RegistrationResponse() { UserId = user.Id };
+                }
+                else
+                {
+                    throw new Exception($"{result.Errors}");
+                }
+            }
+            else
+            {
+                throw new Exception($"Email {registrationRequest.Email} already exists.");
+            }
+        }
+
         public async Task<bool> VerifyEmailAsync(string email, string token)
         {
             var decodedToken = WebUtility.UrlDecode(token);
@@ -135,6 +165,25 @@ namespace TalentForge.Identity.Services
 
             user.IsActive = true;
             var result = await _userManager.ConfirmEmailAsync(user, decodedToken);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Email verification failed: {errors}");
+            }
+            return true;
+        }
+
+        public async Task<bool> SetPasswordAsync(SetPasswordDto request)
+        {
+            ApplicationUser user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                throw new Exception($"ApplicationUser with {request.Email} not found");
+            }
+
+            user.IsActive = true;
+            user.EmailConfirmed = true;
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
             if (!result.Succeeded)
             {
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));

@@ -30,5 +30,7 @@ namespace TalentForge.Persistence
         }
 
         public DbSet<Domain.Task> Tasks { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobApplication> Applications { get; set; }
     }
 }

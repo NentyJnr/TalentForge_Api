@@ -23,10 +23,39 @@ namespace TalentForge.Infrastructure.Mail
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<bool> SendPasswordEmail(UserDto user)
+        {
+            var baseUrl = GetBaseUrl();
+            var verificationUrl = $"{baseUrl.TrimEnd('/')}/api/account/set-password-email?email={user.Email}";
+
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailTalentForges", "EmailPassword.html");
+            var templateContent = await File.ReadAllTextAsync(templatePath);
+
+            var emailBody = templateContent
+                .Replace("{{PasswordUrl}}", verificationUrl)
+                .Replace("{{Email}}", user.Email)
+                .Replace("{{Initials}}", GetUserInitials(user.FirstName, user.LastName))
+                .Replace("{{FirstName}}", user.FirstName)
+                .Replace("{{LastName}}", user.LastName ?? "")
+                .Replace("{{CurrentYear}}", DateTime.Now.Year.ToString())
+                .Replace("{{SignupDate}}", user.DateCreated.ToString("dd MMM, yyyy"))
+                .Replace("{{ExpirationHours}}", "24");
+
+            var email = new Email
+            {
+                To = user.Email,
+                Subject = "Set new password",
+                Body = emailBody
+            };
+
+            var result = await _emailSender.SendEmail(email);
+            if (!result) { return false; }
+            return true;
+        }
+
         public async Task<bool> SendVerificationEmail(UserDto user, string token)
         {
             var encodedToken = Uri.EscapeDataString(token);
-
             var baseUrl = GetBaseUrl();
             var verificationUrl = $"{baseUrl.TrimEnd('/')}/api/account/verify-email?email={user.Email}&token={encodedToken}";
 
@@ -46,7 +75,7 @@ namespace TalentForge.Infrastructure.Mail
             var email = new Email
             {
                 To = user.Email,
-                Subject = "Verify your PayLink account",
+                Subject = "Verify your TalentForge account",
                 Body = emailBody
             };
 
@@ -54,6 +83,7 @@ namespace TalentForge.Infrastructure.Mail
             if (!result) { return false; }
             return true;
         }
+
         public async Task<bool> SendPasswordResetTokenEmail(UserDto user, string token)
         {
             var encodedToken = Uri.EscapeDataString(token);
@@ -72,7 +102,7 @@ namespace TalentForge.Infrastructure.Mail
             var email = new Email
             {
                 To = user.Email,
-                Subject = "Reset your PayLink password",
+                Subject = "Reset your TalentForge password",
                 Body = emailBody
             };
 

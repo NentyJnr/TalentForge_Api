@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TalentForge.Application.Contracts.Identity;
+using TalentForge.Application.DTOs.Identity;
 using TalentForge.Application.Models.Identity;
 
 namespace TalentForge.API.Controllers
@@ -37,6 +38,11 @@ namespace TalentForge.API.Controllers
         public async Task<ActionResult<RegistrationResponse>> ForgotPassword(string email)
         {
             return Ok(await _authService.ForgotPasswordAsync(email));
+        }
+        [HttpPost("set-password")]
+        public async Task<ActionResult<RegistrationResponse>> SetPassword(SetPasswordDto request)
+        {
+            return Ok(await _authService.SetPasswordAsync(request));
         }
         [HttpPost("reset-password")]
         public async Task<ActionResult<RegistrationResponse>> ResetPassword(string email, string token, string newPassword)

@@ -7,7 +7,7 @@ namespace TalentForge.Domain.Common
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

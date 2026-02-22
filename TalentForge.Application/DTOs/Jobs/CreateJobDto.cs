@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TalentForge.Application.DTOs.Common;
+using TalentForge.Application.DTOs.Tasks;
 using TalentForge.Application.Models.Enums;
-using TalentForge.Domain.Common;
 using TalentForge.Domain.Enums;
 
-namespace TalentForge.Domain
+namespace TalentForge.Application.DTOs.Jobs
 {
-    public class Job : BaseObject
+    public class CreateJobDto : IJobDto
     {
         public string Title { get; set; } = string.Empty;
         public string Department { get; set; } = string.Empty;

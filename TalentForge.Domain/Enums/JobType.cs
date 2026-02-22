@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TalentForge.Application.Models.Enums
+namespace TalentForge.Domain.Enums
 {
-    public enum JobStatus
+    public enum JobType
     {
-        Draft,
-        Active,
-        Closed
+        Remote,
+        Hybrid,
+        OnSite
     }
 }

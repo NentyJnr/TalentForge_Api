@@ -17,7 +17,7 @@ namespace TalentForge.Domain
         public int YearsOfExperience { get; set; }
 
         // Navigation Property: A candidate can make many applications
-        public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+        public virtual ICollection<JobApplication> Applications { get; set; } = new List<JobApplication>();
 
         // Navigation Property: Many-to-Many relationship for skills
         public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();

@@ -9,6 +9,7 @@ namespace TalentForge.Application.Contracts.Persistence
     public interface IUnitOfWork : IDisposable
     {
         ITaskRepository TaskRepository { get; }
+        IJobRepository JobRepository { get; }
         Task Save();
     }
 }
