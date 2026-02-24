@@ -12,7 +12,7 @@ namespace TalentForge.Application.Contracts.Infrastructure
     public interface IEmailRequest
     {
         Task<bool> SendVerificationEmail(UserDto user, string token);
-        Task<bool> SendPasswordEmail(UserDto user);
+        Task<bool> SendPasswordEmail(UserDto user, string password);
         Task<bool> SendPasswordResetTokenEmail(UserDto user, string token);
     }
 }

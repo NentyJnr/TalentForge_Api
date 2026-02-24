@@ -135,7 +135,7 @@ namespace TalentForge.Identity.Services
 
                     var userDto = user.Adapt<UserDto>();
 
-                    var emailResult = await _emailRequest.SendPasswordEmail(userDto);
+                    var emailResult = await _emailRequest.SendPasswordEmail(userDto, generatedPassword);
                     if (!emailResult)
                     {
                         throw new Exception($"Failed to send credentials email to {registrationRequest.Email}.");

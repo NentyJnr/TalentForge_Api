@@ -22,13 +22,13 @@ namespace TalentForge.Application.DTOs.Jobs.Validators
                .NotEmpty().WithMessage("{PropertyName} is required.")
                .NotNull();
 
-            RuleFor(x => x.ExperienceLevel)
-               .NotEmpty().WithMessage("{PropertyName} is required.")
-               .NotNull();
+            //RuleFor(x => x.ExperienceLevel)
+            //   .NotEmpty().WithMessage("{PropertyName} is required.")
+            //   .NotNull();
 
-            RuleFor(x => x.EmploymentType)
-               .NotEmpty().WithMessage("{PropertyName} is required.")
-               .NotNull();
+            //RuleFor(x => x.EmploymentType)
+            //   .NotEmpty().WithMessage("{PropertyName} is required.")
+              // .NotNull();
 
             RuleFor(x => x.Skills)
                .NotEmpty().WithMessage("{PropertyName} is required.")
@@ -38,13 +38,13 @@ namespace TalentForge.Application.DTOs.Jobs.Validators
                .NotEmpty().WithMessage("{PropertyName} is required.")
                .NotNull();
 
-            RuleFor(x => x.Status)
-               .NotEmpty().WithMessage("{PropertyName} is required.")
-               .NotNull();
+            //RuleFor(x => x.Status)
+            //   .NotEmpty().WithMessage("{PropertyName} is required.")
+            //   .NotNull();
 
-            RuleFor(x => x.Type)
-               .NotEmpty().WithMessage("{PropertyName} is required.")
-               .NotNull();
+            //RuleFor(x => x.Type)
+            //   .NotEmpty().WithMessage("{PropertyName} is required.")
+            //   .NotNull();
         }
     }
 }

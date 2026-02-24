@@ -23,7 +23,7 @@ namespace TalentForge.Infrastructure.Mail
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<bool> SendPasswordEmail(UserDto user)
+        public async Task<bool> SendPasswordEmail(UserDto user, string password)
         {
             var baseUrl = GetBaseUrl();
             var verificationUrl = $"{baseUrl.TrimEnd('/')}/api/account/set-password-email?email={user.Email}";
@@ -32,6 +32,7 @@ namespace TalentForge.Infrastructure.Mail
             var templateContent = await File.ReadAllTextAsync(templatePath);
 
             var emailBody = templateContent
+                .Replace("{{Password}}", password)
                 .Replace("{{PasswordUrl}}", verificationUrl)
                 .Replace("{{Email}}", user.Email)
                 .Replace("{{Initials}}", GetUserInitials(user.FirstName, user.LastName))
