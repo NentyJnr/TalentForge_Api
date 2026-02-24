@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TalentForge.Application.Models.Enums;
 using TalentForge.Domain.Common;
 using TalentForge.Domain.Enums;
 

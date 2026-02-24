@@ -1,65 +1,57 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TalentForge.Application.DTOs.JobApplications;
 using TalentForge.Application.DTOs.Jobs;
 using TalentForge.Application.Responses;
+using static TalentForge.Application.Features.Applications.GetApplicationList;
 using static TalentForge.Application.Features.Jobs.CreateJob;
 using static TalentForge.Application.Features.Jobs.DeleteJob;
 using static TalentForge.Application.Features.Jobs.GetJob;
 using static TalentForge.Application.Features.Jobs.GetJobList;
 using static TalentForge.Application.Features.Jobs.UpdateJob;
+using static TalentForge.Application.Features.Tasks.CreateApplication;
+using static TalentForge.Application.Features.Tasks.DeleteApplication;
+using static TalentForge.Application.Features.Tasks.GetApplication;
 
 namespace TalentForge.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobController : BaseController
+    public class ApplicationController : BaseController
     {
         private readonly IMediator _mediator;
 
-        public JobController(IMediator mediator)
+        public ApplicationController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<JobListItemModel>> Get([FromQuery] JobDto request)
+        public async Task<ActionResult<List<ApplicationModel>>> Get([FromQuery] ApplicationDto request)
         {
-            GetJobListQuery query = new GetJobListQuery { UserId = GetCurrentUserId(), JobDto = request };
+            GetApplicationListQuery query = new GetApplicationListQuery { UserId = GetCurrentUserId(), ApplicationDto = request };
             var response = await _mediator.Send(query);
 
             return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<JobModel>> Get(Guid id)
+        public async Task<ActionResult<ApplicationModel>> Get(Guid id)
         {
-            GetJobQuery query = new GetJobQuery { Id = id };
+            GetApplicationQuery query = new GetApplicationQuery { Id = id };
             var response = await _mediator.Send(query);
 
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServerResponse<bool>>> Create([FromBody] CreateJobDto createJobDto)
+        public async Task<ActionResult<ServerResponse<bool>>> Create([FromBody] CreateApplicationDto createApplicationDto)
         {
-            CreateJobCommand command = new CreateJobCommand
+            CreateApplicationCommand command = new CreateApplicationCommand
             {
                 UserId = GetCurrentUserId(),
-                CreateJobDto = createJobDto
-            };
-            var response = await _mediator.Send(command);
-
-            return Ok(response);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<ServerResponse<bool>>> Update([FromBody] UpdateJobDto updateJobDto)
-        {
-            UpdateJobCommand command = new UpdateJobCommand
-            {
-                UserId = GetCurrentUserId(),
-                UpdateJobDto = updateJobDto
+                CreateApplicationDto = createApplicationDto
             };
             var response = await _mediator.Send(command);
 
@@ -69,7 +61,7 @@ namespace TalentForge.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServerResponse<bool>>> Delete(Guid id)
         {
-            DeleteJobCommand command = new DeleteJobCommand
+            DeleteApplicationCommand command = new DeleteApplicationCommand
             {
                 UserId = GetCurrentUserId(),
                 Id = id

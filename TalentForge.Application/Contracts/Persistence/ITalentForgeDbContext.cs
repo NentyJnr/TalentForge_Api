@@ -10,7 +10,6 @@ namespace TalentForge.Application.Contracts.Persistence
 {
     public interface ITalentForgeDbContext
     {
-        public DbSet<Domain.Task> Tasks { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

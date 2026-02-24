@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TalentForge.Application.Contracts.Persistence;
 using TalentForge.Application.DTOs.Jobs;
-using TalentForge.Application.DTOs.Tasks;
 using TalentForge.Application.Responses;
 using TalentForge.Domain;
 

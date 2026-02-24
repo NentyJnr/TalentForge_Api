@@ -44,10 +44,10 @@ namespace TalentForge.Application.DTOs.Jobs
 
     public class JobDto
     {
-        public string Title { get; set; } = string.Empty;
-        public string Department { get; set; } = string.Empty;
-        public JobType Type { get; set; }
-        public JobStatus Status { get; set; }
+        public string? Title { get; set; }
+        public string? Department { get; set; }
+        public JobType? Type { get; set; }
+        public JobStatus? Status { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
     }

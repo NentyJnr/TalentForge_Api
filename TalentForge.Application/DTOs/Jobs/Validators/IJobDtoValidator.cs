@@ -1,10 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TalentForge.Application.DTOs.Tasks;
 
 namespace TalentForge.Application.DTOs.Jobs.Validators
 {

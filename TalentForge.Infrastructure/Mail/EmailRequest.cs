@@ -28,7 +28,7 @@ namespace TalentForge.Infrastructure.Mail
             var baseUrl = GetBaseUrl();
             var verificationUrl = $"{baseUrl.TrimEnd('/')}/api/account/set-password-email?email={user.Email}";
 
-            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailTalentForges", "EmailPassword.html");
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailTalentForges", "SetPassword.html");
             var templateContent = await File.ReadAllTextAsync(templatePath);
 
             var emailBody = templateContent

@@ -1,10 +1,10 @@
 
 using TalentForge.Application.Contracts.Persistence;
-using Task = TalentForge.Domain.Task;
+using TalentForge.Domain;
 
 namespace TalentForge.Application.Contracts.Persistence
 {
-    public interface ITaskRepository : IGenericRepository<Task>
+    public interface IInterviewRepository : IGenericRepository<Interview>
     {
     }
 }

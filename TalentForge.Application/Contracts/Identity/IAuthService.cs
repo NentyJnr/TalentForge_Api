@@ -13,6 +13,7 @@ namespace TalentForge.Application.Contracts.Identity
     {
         Task<AuthResponse> Login(AuthRequest authRequest);
         Task<RegistrationResponse> Register(RegistrationRequest registrationRequest);
+        Task<RegistrationResponse> RegisterAdmin(AdminRegistrationRequest registrationRequest);
         Task<bool> VerifyEmailAsync(string email, string token);
         Task<bool> ForgotPasswordAsync(string email);
         Task<bool> SetPasswordAsync(SetPasswordDto request);

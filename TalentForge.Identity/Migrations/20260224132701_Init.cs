@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -68,8 +68,7 @@ namespace TalentForge.Identity.Migrations
                 name: "OTPs",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OTP = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OTPType = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -80,8 +79,8 @@ namespace TalentForge.Identity.Migrations
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -199,8 +198,9 @@ namespace TalentForge.Identity.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "DateCreated", "Discriminator", "IsActive", "IsDeleted", "Name", "NormalizedName", "RoleDescription" },
                 values: new object[,]
                 {
-                    { "a4f78d09-86e3-4e96-a91b-3713e8043c7c", null, new DateTime(2025, 10, 27, 17, 5, 42, 66, DateTimeKind.Local).AddTicks(4455), "ApplicationRole", true, false, "Administrator", "ADMINISTRATOR", "Administrative role" },
-                    { "e3f7a8c1-b55c-4e4e-8893-89e440da1bbd", null, new DateTime(2025, 10, 27, 17, 5, 42, 66, DateTimeKind.Local).AddTicks(4475), "ApplicationRole", true, false, "User", "USER", "User role" }
+                    { "9027b732-712a-4068-9ab6-f1e67c2361c2", null, new DateTime(2026, 2, 24, 14, 27, 0, 39, DateTimeKind.Local).AddTicks(7431), "ApplicationRole", true, false, "Recruiter", "RECRUITER", "Recruiter role" },
+                    { "a4f78d09-86e3-4e96-a91b-3713e8043c7c", null, new DateTime(2026, 2, 24, 14, 27, 0, 39, DateTimeKind.Local).AddTicks(7366), "ApplicationRole", true, false, "Administrator", "ADMINISTRATOR", "Administrative role" },
+                    { "e3f7a8c1-b55c-4e4e-8893-89e440da1bbd", null, new DateTime(2026, 2, 24, 14, 27, 0, 39, DateTimeKind.Local).AddTicks(7406), "ApplicationRole", true, false, "Applicant", "APPLICANT", "Applicant role" }
                 });
 
             migrationBuilder.InsertData(
@@ -208,8 +208,8 @@ namespace TalentForge.Identity.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateCreated", "DateModified", "Email", "EmailConfirmed", "FirstName", "ImageUrl", "IsActive", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "7f8df141-8a3e-4f3f-82d3-0a89626a4b1c", 0, "d4e3d2b6-a03f-4cfb-8cee-506b646432c7", new DateTime(2025, 10, 27, 17, 5, 42, 207, DateTimeKind.Local).AddTicks(4673), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, true, false, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEKzntGAE1xdnhsqtkGUek4a3q1CbAOfGf0YbakE/ycbLMs3bO/uRHcfCxIEpwlpMhA==", null, false, "38b58507-e7be-49ab-a489-a7dc4abadca6", false, "admin@localhost.com" },
-                    { "b25a925a-9fbd-4e49-89f1-8ec446a8f023", 0, "95dbc393-53d0-4cbf-8808-506a72250587", new DateTime(2025, 10, 27, 17, 5, 42, 331, DateTimeKind.Local).AddTicks(5571), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, true, false, "USER", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", "AQAAAAIAAYagAAAAENkgG7J2z9z4DZ4ppk4+cxi6C7wdv3w0KE22SgA2V4YPPKd22zzDLXtvJjREOMqATw==", null, false, "e32335f3-e5f5-4985-8e3c-0a8a66ba07dc", false, "user@localhost.com" }
+                    { "7f8df141-8a3e-4f3f-82d3-0a89626a4b1c", 0, "24ef414f-7fbd-4f85-aeab-09a7370c184e", new DateTime(2026, 2, 24, 14, 27, 0, 204, DateTimeKind.Local).AddTicks(1506), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, true, false, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEHGUyM/SAwmsPg0g5ejGR9PBG/zmZuIecpDl+89H5dZgvgPJ+1xFArPCMwY8IWZ/9g==", null, false, "ee07653f-cee0-4030-ac6d-8aac03b12200", false, "admin@localhost.com" },
+                    { "b25a925a-9fbd-4e49-89f1-8ec446a8f023", 0, "9100f97d-06ff-4941-9be7-4366af92563d", new DateTime(2026, 2, 24, 14, 27, 0, 403, DateTimeKind.Local).AddTicks(21), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, true, false, "USER", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEAhNodeSDeW3YZ+EPwUQHfaOKqNcbq3VQYONtnXfsQmYFTveUMZ0JcbVCXvtUDNU7A==", null, false, "083756df-2a5b-47e3-a0bb-13a49e0a65de", false, "user@localhost.com" }
                 });
 
             migrationBuilder.InsertData(

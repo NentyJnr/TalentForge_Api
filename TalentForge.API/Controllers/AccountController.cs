@@ -29,6 +29,11 @@ namespace TalentForge.API.Controllers
         {
             return Ok(await _authService.Register(request));
         }
+        [HttpPost("register-admin")]
+        public async Task<ActionResult<RegistrationResponse>> RegisterAdmin(AdminRegistrationRequest request)
+        {
+            return Ok(await _authService.RegisterAdmin(request));
+        }
         [HttpPost("verify-email")]
         public async Task<ActionResult<RegistrationResponse>> VerifyEmail(string email, string token)
         {

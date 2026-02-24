@@ -29,7 +29,7 @@ namespace TalentForge.Persistence
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        public DbSet<Domain.Task> Tasks { get; set; }
+        public DbSet<Interview> Interviews { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobApplication> Applications { get; set; }
     }

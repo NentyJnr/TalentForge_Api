@@ -29,9 +29,19 @@ namespace TalentForge.Identity.Configurations
                 new ApplicationRole()
                 {
                     Id = "e3f7a8c1-b55c-4e4e-8893-89e440da1bbd",
-                    Name = "User",
-                    NormalizedName = "USER",
-                    RoleDescription = "User role",
+                    Name = "Applicant",
+                    NormalizedName = "APPLICANT",
+                    RoleDescription = "Applicant role",
+                    DateCreated = DateTime.Now,
+                    IsActive = true,
+                    IsDeleted = false
+                },
+                new ApplicationRole()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Recruiter",
+                    NormalizedName = "RECRUITER",
+                    RoleDescription = "Recruiter role",
                     DateCreated = DateTime.Now,
                     IsActive = true,
                     IsDeleted = false

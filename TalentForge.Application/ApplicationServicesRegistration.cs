@@ -5,7 +5,7 @@ using System.Reflection;
 using TalentForge.Application.Contracts.Persistence;
 using TalentForge.Application.Misc;
 using TalentForge.Application.Responses;
-using static TalentForge.Application.Features.Tasks.DeleteTask;
+using static TalentForge.Application.Features.Tasks.DeleteApplication;
 
 namespace TalentForge.Application
 {

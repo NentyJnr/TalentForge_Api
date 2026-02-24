@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TalentForge.Application.DTOs.Common;
-using TalentForge.Application.DTOs.Tasks;
 using TalentForge.Application.Models.Enums;
 using TalentForge.Domain.Enums;
 

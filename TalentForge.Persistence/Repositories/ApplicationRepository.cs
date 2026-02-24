@@ -9,9 +9,7 @@ using TalentForge.Domain;
 
 namespace TalentForge.Persistence.Repositories
 {
-    // TalentForge.Persistence.Repositories/ApplicationRepository.cs
-
-    public class ApplicationRepository : GenericRepository<Job>, IApplicationRepository
+    public class ApplicationRepository : GenericRepository<JobApplication>, IApplicationRepository
     {
         private readonly TalentForgeDbContext _dbContext;
         public ApplicationRepository(TalentForgeDbContext dbContext) : base(dbContext)

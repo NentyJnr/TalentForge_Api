@@ -57,14 +57,14 @@ namespace TalentForge.Application.Features.Jobs
                         j.Department != null && j.Department.ToLower().Contains(deptFilter));
                 }
 
-                if (request.JobDto.Status >= 0)
+                if (request.JobDto.Status.HasValue)
                 {
                     var statusFilter = request.JobDto.Status;
                     filteredJobs = filteredJobs.Where(j =>
                         j.Status == statusFilter);
                 }
 
-                if (request.JobDto.Type >= 0)
+                if (request.JobDto.Type.HasValue)
                 {
                     var typeFilter = request.JobDto.Type;
                     filteredJobs = filteredJobs.Where(j =>

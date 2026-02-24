@@ -10,7 +10,8 @@ namespace TalentForge.Persistence.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TalentForgeDbContext _context;
-        private ITaskRepository _taskRepository;
+        private IInterviewRepository _interviewRepository;
+        private IApplicationRepository _applicationRepository;
         private IJobRepository _jobRepository;
 
         public UnitOfWork(TalentForgeDbContext context)
@@ -18,8 +19,11 @@ namespace TalentForge.Persistence.Repositories
             _context = context;
         }
 
-        public ITaskRepository TaskRepository => 
-         _taskRepository ??= new TaskRepository(_context);
+        public IInterviewRepository InterviewRepository => 
+         _interviewRepository ??= new InterviewRepository(_context);
+
+        public IApplicationRepository ApplicationRepository =>
+         _applicationRepository ??= new ApplicationRepository(_context);
 
         public IJobRepository JobRepository => 
          _jobRepository ??= new JobRepository(_context);

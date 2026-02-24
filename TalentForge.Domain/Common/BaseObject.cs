@@ -14,7 +14,7 @@ namespace TalentForge.Domain.Common
         public string? ModifiedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
         public string? DeletedBy { get; set; }
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsActive { get; set; } = true;
+        public bool IsDeleted { get; set; } = false;
     }
 }

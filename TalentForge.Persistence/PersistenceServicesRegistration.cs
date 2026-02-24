@@ -17,6 +17,7 @@ namespace TalentForge.Persistence
 
             services.AddTransient<IJobRepository, JobRepository>();
             services.AddTransient<IApplicationRepository, ApplicationRepository>();
+            services.AddTransient<IInterviewRepository, InterviewRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

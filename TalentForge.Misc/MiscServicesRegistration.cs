@@ -16,6 +16,7 @@ namespace TalentForge.Misc
         public static IServiceCollection ConfigureMiscServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IFileStorageService, FileStorageService>();
+            services.AddTransient<PasswordGenerator>();
 
             return services;
         }

@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TalentForge.Application.Models.Enums
+namespace TalentForge.Domain.Enums
 {
-    internal class ApplicationStatus
+    public enum ApplicationStatus
     {
+        Applied,
+        Screening,
+        Interview,
+        Offered,
+        Rejected
     }
 }
